@@ -54,12 +54,6 @@ jobs:
         sudo tar -axf $archive
         echo JDK=${archive%%.tar.gz} >> $GITHUB_ENV
 
-    - name: Use specific API
-      if: matrix.api != 'jdk'
-      run: |
-        find -name '*.java' | xargs sed -i 's/jdk\.crac/${{ matrix.api }}.crac/g'
-        git diff
-
     - run: |
         if [ ${{ matrix.build_jdk }} = crac ]; then
           export JAVA_HOME=${{ env.JDK }}
